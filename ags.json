@@ -1,0 +1,23 @@
+{
+  "1001": {
+    "name": "SK Flensburg",
+    "state": "Schleswig-Holstein",
+    "lat": 54.7805,
+    "lon": 9.4352,
+    "population": 90164
+  },
+  "9162": {
+    "name": "SK München",
+    "state": "Bayern",
+    "lat": 48.1374,
+    "lon": 11.5755,
+    "population": 1484226
+  },
+  "9184": {
+    "name": "LK München",
+    "state": "Bayern",
+    "lat": 48.0925,
+    "lon": 11.6252,
+    "population": 350473
+  }
+}
