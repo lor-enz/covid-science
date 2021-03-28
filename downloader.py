@@ -5,16 +5,16 @@ import requests
 
 CSV_VAC = {
     'url': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_BY.csv',
-    'file': 'vac.csv'
+    'file': 'data/vac.csv'
 }
 CSV_INF_OLD = {
     'url': 'https://opendata.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0.csv',
-    'file': 'arcgisinf.csv'
+    'file': 'data/arcgisinf.csv'
 }
 
 CSV_INF = {
     'url': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rki-by-ags.csv',
-    'file': 'inf.csv'
+    'file': 'data/inf.csv'
 }
 
 
