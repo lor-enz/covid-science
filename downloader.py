@@ -3,10 +3,13 @@ import logging
 import csv
 import requests
 
-CSV_VAC = {
-    'url': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_BY.csv',
+CSV_VAC_INCOMPLETE = {
+    'url': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_',
     'file': 'data/vac.csv'
 }
+
+BL_KURZEL = ['BB', 'BE', 'BW', 'BY', 'DE', 'HB', 'HE', 'HH', 'MV', 'NI', 'NW', 'RP', 'SH', 'SL', 'SN', 'ST', 'TH']
+
 CSV_INF_OLD = {
     'url': 'https://opendata.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0.csv',
     'file': 'data/arcgisinf.csv'
@@ -28,6 +31,7 @@ CSV_MUC_INZ = {
     'file': 'data/muc-inz.csv'
     # formatted very badly! >:(
 }
+
 
 def fix_comma_in_muc_infogram_csv(filename):
     fin = open(filename, "rt")
@@ -72,12 +76,22 @@ def download_file(file_data):
     print(f'Downloaded {file_data["file"]}')
 
 
-download_file(CSV_VAC)
-download_file(CSV_INF)
-download_file(JSON_AGS)
+def perform_download():
+    for bundesland_kurzel in BL_KURZEL:
+        dict = {
+            'url': f'{CSV_VAC_INCOMPLETE["url"]}{bundesland_kurzel}.csv',
+            'file': f'data/vac_{bundesland_kurzel}.csv',
+        }
+        download_file(dict)
 
-#download_file(CSV_MUC_INZ)
-#fix_comma_in_muc_infogram_csv(CSV_MUC_INZ['file'])
+    download_file(CSV_INF)
+    download_file(JSON_AGS)
 
-download_file(CSV_INF_OLD)
-fix_comma_in_csv(CSV_INF_OLD['file'])
+    # download_file(CSV_MUC_INZ)
+    # fix_comma_in_muc_infogram_csv(CSV_MUC_INZ['file'])
+
+    download_file(CSV_INF_OLD)
+    fix_comma_in_csv(CSV_INF_OLD['file'])
+
+if __name__ == '__main__':
+    perform_download()
