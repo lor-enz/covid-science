@@ -85,7 +85,12 @@ def perform_download():
         download_file(dict)
 
     download_file(CSV_INF)
-    download_file(JSON_AGS)
+
+    if os.path.isfile(JSON_AGS['file']) :
+        print(f'{JSON_AGS["file"]} already exists. Skipping download.')
+    else:
+        download_file(JSON_AGS)
+
 
     # download_file(CSV_MUC_INZ)
     # fix_comma_in_muc_infogram_csv(CSV_MUC_INZ['file'])
