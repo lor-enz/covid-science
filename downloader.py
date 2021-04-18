@@ -87,7 +87,7 @@ def perform_download():
     download_file(CSV_INF)
 
     if os.path.isfile(JSON_AGS['file']) :
-        print(f'{JSON_AGS["file"]} already exists. Skipping download.')
+        print(f'Skipping   {JSON_AGS["file"]} It already exists.')
     else:
         download_file(JSON_AGS)
 
