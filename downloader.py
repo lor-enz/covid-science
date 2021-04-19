@@ -99,4 +99,6 @@ def perform_download():
     fix_comma_in_csv(CSV_INF_OLD['file'])
 
 if __name__ == '__main__':
+    from datetime import datetime
+    print(f"{datetime.now()}")
     perform_download()
