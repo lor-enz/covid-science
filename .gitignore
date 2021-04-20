@@ -1,6 +1,6 @@
 /.idea
 /data
 /plots
-
+/.ipynb_checkpoints
 *.csv
 *.json
