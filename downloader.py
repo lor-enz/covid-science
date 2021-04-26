@@ -1,23 +1,29 @@
 import os
-import logging
 import csv
 import requests
+
+import shared
 
 CSV_VAC_INCOMPLETE = {
     'url': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_',
     'file': 'data/vac.csv'
 }
 
-BL_KURZEL = ['BB', 'BE', 'BW', 'BY', 'DE', 'HB', 'HE', 'HH', 'MV', 'NI', 'NW', 'RP', 'SH', 'SL', 'SN', 'ST', 'TH']
-
-CSV_INF_OLD = {
+CSV_INF_CURRENT = {
     'url': 'https://opendata.arcgis.com/datasets/917fc37a709542548cc3be077a786c17_0.csv',
     'file': 'data/arcgisinf.csv'
 }
 
-CSV_INF = {
+CSV_INF_LK_HIST = {
     'url': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rki-by-ags.csv',
-    'file': 'data/inf.csv'
+    'url2': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rl-crowdsource-by-ags.csv',
+    'file': 'data/inf_lk.csv'
+}
+
+CSV_INF_BL_HIST = {
+    'url': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rki-by-state.csv',
+    'url2': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rl-crowdsource-by-state.csv',
+    'file': 'data/inf_bl.csv'
 }
 
 JSON_AGS = {
@@ -77,15 +83,23 @@ def download_file(file_data):
 
 
 def perform_download():
-    for bundesland_kurzel in BL_KURZEL:
+    import time, random
+    wait_time = 0.1
+    bl_kurzel = shared.bl_kurzel
+    random.shuffle(bl_kurzel)
+    for bundesland_kurzel in bl_kurzel:
         dict = {
             'url': f'{CSV_VAC_INCOMPLETE["url"]}{bundesland_kurzel}.csv',
             'file': f'data/vac_{bundesland_kurzel}.csv',
         }
+        wait_time = wait_time + 0.2
+        time.sleep(wait_time)
         download_file(dict)
-
-    download_file(CSV_INF)
-
+    time.sleep(wait_time)
+    download_file(CSV_INF_LK_HIST)
+    time.sleep(0.5)
+    download_file(CSV_INF_BL_HIST)
+    time.sleep(0.5)
     if os.path.isfile(JSON_AGS['file']) :
         print(f'Skipping   {JSON_AGS["file"]} It already exists.')
     else:
@@ -95,8 +109,8 @@ def perform_download():
     # download_file(CSV_MUC_INZ)
     # fix_comma_in_muc_infogram_csv(CSV_MUC_INZ['file'])
 
-    download_file(CSV_INF_OLD)
-    fix_comma_in_csv(CSV_INF_OLD['file'])
+    download_file(CSV_INF_CURRENT)
+    fix_comma_in_csv(CSV_INF_CURRENT['file'])
 
 if __name__ == '__main__':
     from datetime import datetime
