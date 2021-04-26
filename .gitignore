@@ -2,5 +2,6 @@
 /data
 /plots
 /.ipynb_checkpoints
+/__pycache__
 *.csv
 *.json
