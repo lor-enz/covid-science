@@ -84,7 +84,7 @@ def download_file(file_data):
 
 def perform_download():
     import time, random
-    wait_time = 0.1
+
     bl_kurzel = shared.bl_kurzel
     random.shuffle(bl_kurzel)
     for bundesland_kurzel in bl_kurzel:
@@ -92,14 +92,14 @@ def perform_download():
             'url': f'{CSV_VAC_INCOMPLETE["url"]}{bundesland_kurzel}.csv',
             'file': f'data/vac_{bundesland_kurzel}.csv',
         }
-        wait_time = wait_time + 0.2
-        time.sleep(wait_time)
+
+        time.sleep(random.uniform(0, 1))
         download_file(dict)
-    time.sleep(wait_time)
+    time.sleep(random.uniform(0, 1))
     download_file(CSV_INF_LK_HIST)
-    time.sleep(0.5)
+    time.sleep(random.uniform(0, 1))
     download_file(CSV_INF_BL_HIST)
-    time.sleep(0.5)
+    time.sleep(random.uniform(0, 1))
     if os.path.isfile(JSON_AGS['file']) :
         print(f'Skipping   {JSON_AGS["file"]} It already exists.')
     else:
