@@ -21,8 +21,8 @@ CSV_INF_LK_HIST = {
 }
 
 CSV_INF_BL_HIST = {
-    'url': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rki-by-state.csv',
-    'url2': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rl-crowdsource-by-state.csv',
+    'url2': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rki-by-state.csv',
+    'url': 'https://raw.githubusercontent.com/jgehrcke/covid-19-germany-gae/master/cases-rl-crowdsource-by-state.csv',
     'file': 'data/inf_bl.csv'
 }
 
@@ -83,7 +83,8 @@ def download_file(file_data):
 
 
 def perform_download():
-    import time, random
+    import time
+    import random
 
     bl_kurzel = shared.bl_kurzel
     random.shuffle(bl_kurzel)
@@ -100,17 +101,17 @@ def perform_download():
     time.sleep(random.uniform(0, 1))
     download_file(CSV_INF_BL_HIST)
     time.sleep(random.uniform(0, 1))
-    if os.path.isfile(JSON_AGS['file']) :
+    if os.path.isfile(JSON_AGS['file']):
         print(f'Skipping   {JSON_AGS["file"]} It already exists.')
     else:
         download_file(JSON_AGS)
-
 
     # download_file(CSV_MUC_INZ)
     # fix_comma_in_muc_infogram_csv(CSV_MUC_INZ['file'])
 
     download_file(CSV_INF_CURRENT)
     fix_comma_in_csv(CSV_INF_CURRENT['file'])
+
 
 if __name__ == '__main__':
     from datetime import datetime
