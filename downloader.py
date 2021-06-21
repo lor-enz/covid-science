@@ -5,7 +5,8 @@ import requests
 import shared
 
 CSV_VAC_INCOMPLETE = {
-    'url': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_',
+    'url_v2_old': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_',
+    'url': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v3/region_',
     'file': 'data/vac.csv'
 }
 
