@@ -2,7 +2,7 @@ import os
 import csv
 import requests
 
-import shared
+
 
 CSV_VAC_INCOMPLETE = {
     'url_v2_old': 'https://raw.githubusercontent.com/ard-data/2020-rki-impf-archive/master/data/9_csv_v2/region_',
@@ -84,8 +84,13 @@ def download_file(file_data):
 
 
 def perform_download():
+    if os.path.isfile(JSON_AGS['file']):
+        print(f'Skipping   {JSON_AGS["file"]} It already exists.')
+    else:
+        download_file(JSON_AGS)
     import time
     import random
+    import shared
     random_sleep_time = 0.3
     bl_kurzel = shared.bl_kurzel
     random.shuffle(bl_kurzel)
@@ -102,10 +107,7 @@ def perform_download():
     time.sleep(random.uniform(0, random_sleep_time))
     download_file(CSV_INF_BL_HIST)
     time.sleep(random.uniform(0, random_sleep_time))
-    if os.path.isfile(JSON_AGS['file']):
-        print(f'Skipping   {JSON_AGS["file"]} It already exists.')
-    else:
-        download_file(JSON_AGS)
+
 
     # download_file(CSV_MUC_INZ)
     # fix_comma_in_muc_infogram_csv(CSV_MUC_INZ['file'])
